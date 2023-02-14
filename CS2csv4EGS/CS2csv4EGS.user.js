@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            CatShanty2 csv converter for EGS
-// @namespace       http://tampermonkey.net/
-// @version         0.9.0
+// @namespace       https://github.com/Prince-of-sea/UserscriptWorks_mk2/
+// @version         1.0.0
 // @description     Make EGS information easily available on CatShanty2.
 // @description:ja  批評空間の情報をCatShanty2で簡単に利用できるようにします
 // @author          Prince-of-sea
@@ -13,27 +13,8 @@
 // @grant           none
 // ==/UserScript==
 
-//////////////////////////////ユーザー定義部分 ここから//////////////////////////////
 
-// csv保存時の"機種名"です
-const hardware = 'windows';
-
-// csv保存時の"メディア"です
-const media = 'windows実行ファイル';
-
-// csv保存時の"国名"です 多分そのままでいいと思います
-const country = 'JP';
-
-// csv保存時の"拡張R指定"で、18禁の場合に使う変数です
-const extend_R18 = '_ 18才以上';
-
-// csv保存時の"拡張R指定"で、全年齢の場合に使う変数です
-const extend_All = '_ 審査外';
-
-
-//////////////////////////////ユーザー定義部分 ここまで//////////////////////////////
-
-//////////////////////////////作品情報取得 ここから//////////////////////////////
+//////////////////////////////作品情報取得//////////////////////////////
 let title_list = document.getElementById('soft-title').children;
 title_list = Array.from(title_list);
 
@@ -41,17 +22,17 @@ const title = title_list[0].textContent
 const brand = document.getElementById('brand').children[1].textContent
 const sellday = document.getElementById('sellday').children[1].textContent
 
-let extend = '';
+let extend_default = '';
 let extend_num = '';
 if ((document.getElementById('erogame').children[1].textContent).includes('非18禁')){
-	extend = extend_All;
+	extend_default = '_ 審査外';
 } else {
-	extend = extend_R18;
+	extend_default = '_ 18才以上';
 	extend_num = '1';
 };
-//////////////////////////////作品情報取得 ここまで//////////////////////////////
 
-//////////////////////////////クリエイター情報取得 ここから//////////////////////////////
+
+//////////////////////////////クリエイター情報取得//////////////////////////////
 const creater = document.getElementById('creater_infomation_table');
 let creater_text = '';
 
@@ -103,19 +84,28 @@ if (creater.firstChild != null){
 	});
 }
 // console.log(creater_text);
-//////////////////////////////クリエイター情報取得 ここまで//////////////////////////////
 
-//////////////////////////////ボタン表示 ここから//////////////////////////////
+
+//////////////////////////////ボタン表示//////////////////////////////
 const info = document.getElementById('creater_infomation');
 const new_element = document.createElement('span');
 
-new_element.innerHTML = `
-<h3>CatShanty2用拡張メニュー</h3>
+new_element.innerHTML = (`
+<h3>CatShanty2 csv converter 拡張メニュー</h3>
+<p><span style="font-weight:bold;color:red;">[必読]</span>詳しい使い方の説明は<a href="https://github.com/Prince-of-sea/UserscriptWorks_mk2/blob/main/CS2csv4EGS/README.md">こちら</a></p>
+<br>
 <p>起動ファイル(.exe)の絶対パス：<input type="text" id="FilePath" name="FilePath" size="70"></p>
+
+<p>
+機種名：<input type="text" id="hardware" name="hardware" value="windows" size="6">
+メディア：<input type="text" id="media" name="media" value="windows実行ファイル" size="16">
+拡張R指定：<input type="text" id="extend_r" name="extend_r" value="`+ extend_default +`" size="9">
+</p>
 
 <p>
 ジャンル：<input type="text" id="genre" name="genre" value="アドベンチャー" size="12">
 プレイ人数：<input type="text" id="player" name="player" value="1" size="3">
+国：<input type="text" id="country" name="country" value="JP" size="1">
 </p>
 
 <p>
@@ -132,19 +122,26 @@ new_element.innerHTML = `
 
 <button id="btn1" type="button">クリップボードにコピー(クリエイターのみ)</button>
 <button id="btn2" type="button">クリップボードにコピー(csv)</button>
-`;
-info.appendChild(new_element);
-//////////////////////////////ボタン表示 ここまで//////////////////////////////
 
-//////////////////////////////操作関連 ここから//////////////////////////////
+<p style="text-align:right; font-style:italic; color:#AAAAAA;">
+Produced by <a style="color:#AAAAAA;" href="https://github.com/Prince-of-sea">Prince-of-sea</a>
+</p>
+`);
+info.appendChild(new_element);
+
+//////////////////////////////操作関連//////////////////////////////
 const btn1 = document.getElementById('btn1');
 const btn2 = document.getElementById('btn2');
 
 
 function csv_create(fp) {
+	let hardware = document.getElementById('hardware').value;
+	let media = document.getElementById('media').value;
+	let extend_r = document.getElementById('extend_r').value;
 	let player = document.getElementById('player').value;
 	let genre = document.getElementById('genre').value;
-
+	let country = document.getElementById('country').value;
+	
 	let maker = ''
 	let developer = ''
 
@@ -160,7 +157,7 @@ function csv_create(fp) {
 		developer = document.getElementById('developer').value.replace(/;/g, '；');
 	}
 
-	return (fp+','+hardware+','+media+','+title+',,'+maker+','+developer+','+country+',,'+extend_num+','+sellday+','+genre+',,'+creater_text+',,,,,,,'+player+','+extend+',,');
+	return (fp+','+hardware+','+media+','+title+',,'+maker+','+developer+','+country+',,'+extend_num+','+sellday+','+genre+',,'+creater_text+',,,,,,,'+player+','+extend_r+',,');
 }
 
 
@@ -186,5 +183,3 @@ btn2.addEventListener('click', () => {
 	}
 	setTimeout(() => (btn2.innerHTML = 'クリップボードにコピー(csv)'), 1500);
 });
-
-//////////////////////////////操作関連 ここまで//////////////////////////////
