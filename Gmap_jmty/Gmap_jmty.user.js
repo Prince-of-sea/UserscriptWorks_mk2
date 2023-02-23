@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Google Maps URL on jmty
 // @namespace       https://github.com/Prince-of-sea/UserscriptWorks_mk2/
-// @version         0.9.0
+// @version         1.0.0
 // @description     Add a link to Google Maps in the transaction location section of Jimoty.
 // @description:ja  ジモティーの取引場所欄にGoogle Mapsへのリンクを追加します
 // @author          Prince-of-sea
@@ -25,12 +25,20 @@ for (i = 0, len = rowElems.length; i < len; i++) {
 		let value = row_i.getElementsByClassName('p-article-column-value')[0];
 
 		for (j = 0, len2 = value.children.length; j < len2; j++) {
-			let search_word = (value.children[j].textContent).split(' - ').join(' ').split('、').join(' ');
-			value.children[j].innerHTML += (`
-				<a target="_blank" href="https://www.google.co.jp/maps/search/` + search_word + `">
-				<img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&url=https://www.google.co.jp/maps/&size=16">
-				</a>
-			`);
+			let search = (value.children[j].textContent).split(' - ').join(' ').split('、');
+
+			for (k = 0, len3 = search.length; k < len3; k++) {
+				let search_word = search[k];
+
+				value.children[j].innerHTML += (`
+					<a target="_blank" style="text-decoration: none;" href="https://www.google.co.jp/maps/search/` + search_word + `">
+					<img style="opacity: 1.0;"
+					 onMouseOver="this.style.opacity=0.6; this.style.scale=0.9;"
+					 onMouseOut="this.style.opacity=1.0; this.style.scale=1.0;"
+					 src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&url=https://www.google.co.jp/maps/&size=16">
+					</a>
+				`);
+			}
 		}
 	}
 }
