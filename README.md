@@ -10,6 +10,6 @@
 | [TokyoDeep free page checker](./TokyoDeep_fpc/) | [読んでね♪](./TokyoDeep_fpc/README.md) | [Install](./TokyoDeep_fpc/TokyoDeep_fpc.user.js?raw=1) |
 | [Skip Google redirect-alert](./Skip_redirect/) | [読んでね♪](./Skip_redirect/README.md) | [Install](./Skip_redirect/Skip_redirect.user.js?raw=1) |
 | [Google Maps URL on jmty](./Gmap_jmty/) | [読んでね♪](./Gmap_jmty/README.md) | [Install](./Gmap_jmty/Gmap_jmty.user.js?raw=1) |
-| [Nitter Redirect on Greasemonkey](./Nitter_on_gm/) | [読んでね♪](./Nitter_on_gm/README.md) | [Install](./Nitter_on_gm/Nitter_on_gm.user.js?raw=1) |
-| [Teddit Please on Greasemonkey](./Teddit_on_gm/) | [読んでね♪](./Teddit_on_gm/README.md) | [Install](./Teddit_on_gm/Teddit_on_gm.user.js?raw=1) |
+| ~~Nitter Redirect on Greasemonkey~~ | 公開停止 | [代替](https://github.com/dybdeskarphet/privacy-redirector) |
+| ~~Teddit Please on Greasemonkey~~ | 公開停止 | [代替](https://github.com/dybdeskarphet/privacy-redirector) |
 | [Keepa on Greasemonkey](./Keepa_on_gm/) | [読んでね♪](./Keepa_on_gm/README.md) | [Install](./Keepa_on_gm/Keepa_on_gm.user.js?raw=1) |
