@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            CatShanty2 csv converter for EGS
 // @namespace       https://github.com/Prince-of-sea/UserscriptWorks_mk2/
-// @version         1.0.0
+// @version         1.0.1
 // @description     Make EGS information easily available on CatShanty2.
 // @description:ja  批評空間の情報をCatShanty2で簡単に利用できるようにします
 // @author          Prince-of-sea
@@ -135,12 +135,12 @@ const btn2 = document.getElementById('btn2');
 
 
 function csv_create(fp) {
-	let hardware = document.getElementById('hardware').value;
-	let media = document.getElementById('media').value;
-	let extend_r = document.getElementById('extend_r').value;
-	let player = document.getElementById('player').value;
-	let genre = document.getElementById('genre').value;
-	let country = document.getElementById('country').value;
+	let hardware = document.getElementById('hardware').value.replace(',', '');
+	let media = document.getElementById('media').value.replace(',', '');
+	let extend_r = document.getElementById('extend_r').value.replace(',', '');
+	let player = document.getElementById('player').value.replace(',', '');
+	let genre = document.getElementById('genre').value.replace(',', '');
+	let country = document.getElementById('country').value.replace(',', '');
 	
 	let maker = ''
 	let developer = ''
